@@ -176,8 +176,8 @@ Download_zhenxun_bot() {
     echo -e "${Info} 开始下载最新版 zhenxun_bot ..."
     git clone "${zhenxun_url}" || (echo -e "${Error} zhenxun_bot 下载失败 !" && exit 1)
     echo -e "${Info} 开始下载最新版 go-cqhttp ..."
-    gocq_version=$(wget -qO- -t1 -T2 "https://api.github.com/repos/Mrs4s/go-cqhttp/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
-    wget -qO- "https://github.com/Mrs4s/go-cqhttp/releases/download/${gocq_version}/go-cqhttp_$(uname -s)_amd64.tar.gz" -O go-cqhttp.tar.gz || (echo -e "${Error} go-cqhttp 下载失败 !" && exit 1)
+    gocq_version=$(wget -O- -t1 -T2 "https://api.github.com/repos/Mrs4s/go-cqhttp/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
+    wget -O- "https://github.com/Mrs4s/go-cqhttp/releases/download/${gocq_version}/go-cqhttp_$(uname -s)_amd64.tar.gz" -O go-cqhttp.tar.gz || (echo -e "${Error} go-cqhttp 下载失败 !" && exit 1)
     cd "${work_dir}" || exit 1
     mv "/tmp/zhenxun_bot" ./
     mkdir -p "go-cqhttp"
@@ -187,8 +187,8 @@ Download_zhenxun_bot() {
         echo -e "${info} 抽卡资源文件已存在，跳过下载"
     else
         SOURCE_URL=https://pan.yropo.top/source/zhenxun/
-        wget ${SOURCE_URL}data_draw_card.tar.gz -qO ~/.cache/data_draw_card.tar.gz \
-            && wget ${SOURCE_URL}img_draw_card.tar.gz -qO ~/.cache/img_draw_card.tar.gz \
+        wget ${SOURCE_URL}data_draw_card.tar.gz -O ~/.cache/data_draw_card.tar.gz \
+            && wget ${SOURCE_URL}img_draw_card.tar.gz -O ~/.cache/img_draw_card.tar.gz \
             && tar -zxf ~/.cache/data_draw_card.tar.gz -C ${work_dir}/zhenxun_bot/ \
             && tar -zxf ~/.cache/img_draw_card.tar.gz -C ${work_dir}/zhenxun_bot/ \
             && rm -rf ~/.cache/*.tar.gz
